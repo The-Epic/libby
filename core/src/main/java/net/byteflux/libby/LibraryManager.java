@@ -257,7 +257,7 @@ public abstract class LibraryManager {
      * @param url the URL to the library jar
      * @return downloaded jar as byte array or null if nothing was downloaded
      */
-    private byte[] downloadLibrary(String url) {
+    private byte[] downloadLibrary(String url, String id) {
         try {
             URLConnection connection = new URL(requireNonNull(url, "url")).openConnection();
 
@@ -275,11 +275,11 @@ public abstract class LibraryManager {
                         out.write(buf, 0, len);
                     }
                 } catch (SocketTimeoutException e) {
-                    logger.warn("Download timed out: " + connection.getURL());
+                    logger.warn("Download timed out: " + id);
                     return null;
                 }
 
-                logger.info("Downloaded library " + connection.getURL());
+                logger.info("Downloaded library " + id);
                 return out.toByteArray();
             }
         } catch (MalformedURLException e) {
@@ -348,7 +348,7 @@ public abstract class LibraryManager {
             Files.createDirectories(file.getParent());
 
             for (String url : urls) {
-                byte[] bytes = downloadLibrary(url);
+                byte[] bytes = downloadLibrary(url, library.getId());
                 if (bytes == null) {
                     continue;
                 }

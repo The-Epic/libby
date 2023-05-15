@@ -6,7 +6,7 @@
 
     <groupId>net.byteflux</groupId>
     <artifactId>libby</artifactId>
-    <version>1.2.0</version>
+    <version>1.2.1-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <modules>
@@ -54,15 +54,9 @@
 
     <distributionManagement>
         <repository>
-            <id>alessiodp-repo</id>
-            <name>AlessioDP repository</name>
-            <url>https://repo.alessiodp.com/releases/</url>
+            <id>epicebic-repo</id>
+            <url>https://repo.epicebic.xyz/public</url>
         </repository>
-        <snapshotRepository>
-            <id>alessiodp-repo</id>
-            <name>AlessioDP repository</name>
-            <url>https://repo.alessiodp.com/snapshots/</url>
-        </snapshotRepository>
     </distributionManagement>
 
     <profiles>
@@ -87,15 +81,9 @@
             </build>
             <distributionManagement>
                 <repository>
-                    <id>alessiodp-repo</id>
-                    <name>AlessioDP repository</name>
-                    <url>https://repo.alessiodp.com/releases/</url>
+                    <id>epicebic-repo</id>
+                    <url>https://repo.epicebic.xyz/public/</url>
                 </repository>
-                <snapshotRepository>
-                    <id>alessiodp-repo</id>
-                    <name>AlessioDP repository</name>
-                    <url>https://repo.alessiodp.com/snapshots/</url>
-                </snapshotRepository>
             </distributionManagement>
         </profile>
     </profiles>
