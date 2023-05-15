@@ -4,8 +4,12 @@ import net.byteflux.libby.classloader.URLClassLoaderHelper;
 import net.byteflux.libby.logging.adapters.JDKLogAdapter;
 import org.bukkit.plugin.Plugin;
 
+import java.io.File;
 import java.net.URLClassLoader;
 import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.Arrays;
+import java.util.stream.Collectors;
 
 import static java.util.Objects.requireNonNull;
 
@@ -24,7 +28,7 @@ public class BukkitLibraryManager extends LibraryManager {
      * @param plugin the plugin to manage
      */
     public BukkitLibraryManager(Plugin plugin) {
-        this(plugin, "lib");
+        this(plugin, "libraries");
     }
 
     /**
@@ -34,8 +38,14 @@ public class BukkitLibraryManager extends LibraryManager {
      * @param directoryName download directory name
      */
     public BukkitLibraryManager(Plugin plugin, String directoryName) {
-        super(new JDKLogAdapter(requireNonNull(plugin, "plugin").getLogger()), plugin.getDataFolder().toPath(), directoryName);
+        super(new JDKLogAdapter(requireNonNull(plugin, "plugin").getLogger()),getLibrariesFolder(plugin), directoryName);
         classLoader = new URLClassLoaderHelper((URLClassLoader) plugin.getClass().getClassLoader(), this);
+    }
+
+    public static Path getLibrariesFolder(Plugin plugin) {
+        String[] sections = plugin.getDataFolder().getAbsolutePath().split("\\\\");
+        String path = Arrays.stream(sections).limit(sections.length - 2).collect(Collectors.joining(File.separator));
+        return Paths.get(path);
     }
 
     /**
